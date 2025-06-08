@@ -1,0 +1,67 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "paperless-ngx-llamaindex"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "kc3zvd", email = "aaron@kc3zvd.net" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "click",
+  "llama-index"
+]
+
+[project.urls]
+Documentation = "https://github.com/kc3zvd/paperless-ngx-llamaindex#readme"
+Issues = "https://github.com/kc3zvd/paperless-ngx-llamaindex/issues"
+Source = "https://github.com/kc3zvd/paperless-ngx-llamaindex"
+
+[project.scripts]
+paperless-ngx-llamaindex = "paperless_ngx_llamaindex.cli:paperless_ngx_llamaindex"
+
+[tool.hatch.version]
+path = "src/paperless_ngx_llamaindex/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/paperless_ngx_llamaindex tests}"
+
+[tool.coverage.run]
+source_pkgs = ["paperless_ngx_llamaindex", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/paperless_ngx_llamaindex/__about__.py",
+]
+
+[tool.coverage.paths]
+paperless_ngx_llamaindex = ["src/paperless_ngx_llamaindex", "*/paperless-ngx-llamaindex/src/paperless_ngx_llamaindex"]
+tests = ["tests", "*/paperless-ngx-llamaindex/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
